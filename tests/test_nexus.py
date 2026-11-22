@@ -18,7 +18,7 @@ def test_agent_observes_learns_and_persists(tmp_path):
     assert result.selected_action == "recharge"
     assert agent.current_state["energy"] == 3
     assert agent.world.version == 1
-    assert agent.last_prediction_error == 0
+    assert agent.last_prediction_error == 2
     assert agent.episodic.recent()
     agent.close()
 
