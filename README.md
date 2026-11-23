@@ -12,15 +12,28 @@ NEXUS is an experimental cognitive architecture exploring general-purpose, exper
 - Prediction and prediction-error tracking.
 - Goal-directed selection among actions explicitly supplied by an environment.
 - A cycle of observe → predict → choose → act → evaluate → learn.
-- CLI sandbox, tests, and GitHub Actions.
+- CLI sandbox, browser interface, tests, and GitHub Actions.
 
 ## Install and run
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -e .
 pytest
+```
+
+Start the browser interface:
+
+```bash
+nexus-web
+```
+
+Then open **http://127.0.0.1:8765** in your browser. To listen on another interface or port, use `nexus-web --host 0.0.0.0 --port 8765`. Only expose it on a trusted network: this prototype has no authentication.
+
+Or run the command-line sandbox:
+
+```bash
 nexus
 ```
 
@@ -35,11 +48,15 @@ status
 quit
 ```
 
+## Browser interface
+
+The responsive HTML dashboard talks to the same Python agent through a small standard-library HTTP server. It can record observations, set numeric goals, edit the available demo actions, run cognitive cycles, and inspect model updates and prediction errors. The included environment transition is intentionally a sandbox demonstration, not an autonomous real-world actuator.
+
 ## Architecture and limitations
 
 The current world model is deliberately simple: it averages numeric state deltas observed after named actions. The selector estimates which supplied action moves the current state toward a numeric goal. It does not yet represent rich causal structure, language understanding, perception, long-horizon planning, or general learning.
 
-The cognitive core has no network, shell, or arbitrary tool permissions. Environments supply the available actions and execute them. Future integrations must use scoped capabilities, audit logs, and human approval for consequential operations.
+The cognitive core has no network, shell, or arbitrary tool permissions. Environments supply the available actions and execute them. The browser server binds to localhost by default and does not include authentication; do not expose it to an untrusted network. Future integrations must use scoped capabilities, audit logs, and human approval for consequential operations.
 
 ## Roadmap
 
@@ -47,6 +64,7 @@ The cognitive core has no network, shell, or arbitrary tool permissions. Environ
 - [x] Explicit belief records with evidence
 - [x] Experience-conditioned transition learning
 - [x] Prediction error and action scoring
+- [x] Browser control panel
 - [ ] Relational and causal world models
 - [ ] Hierarchical planning and subgoals
 - [ ] Active experiment design and information gain
