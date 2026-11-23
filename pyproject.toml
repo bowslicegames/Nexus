@@ -13,9 +13,13 @@ dependencies = []
 
 [project.scripts]
 nexus = "nexus.cli:main"
+nexus-web = "nexus.web:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+nexus = ["index.html"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
